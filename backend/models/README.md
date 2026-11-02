@@ -1,0 +1,1 @@
+Place a legitimately sourced, appropriately licensed model checkpoint here only after verifying that its architecture, preprocessing, input size and output labels match the inference code. A .pth file alone is not a complete model integration.

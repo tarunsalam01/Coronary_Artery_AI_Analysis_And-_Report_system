@@ -1,0 +1,1793 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#071b2a" />
+    <title>Vessel Analysis | Coronary AI</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+/* Embedded Core Theme Stylesheet */
+:root {
+  --ink: #10283a;
+  --muted: #718394;
+  --navy: #071b2a;
+  --teal: #1bc7b3;
+  --line: #dce6eb;
+  --bg: #f3f7f9;
+  --red: #c84c57;
+  --shadow: 0 18px 50px #0b263712;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font:
+    15px/1.6 "DM Sans",
+    sans-serif;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+}
+.material-symbols-outlined {
+  vertical-align: middle;
+}
+.site-header {
+  height: 82px;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  padding: 0 max(calc((100vw - 1240px) / 2), 5.5%);
+  gap: 35px;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 800 19px Manrope;
+  letter-spacing: -0.6px;
+}
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  background: var(--teal);
+  color: var(--navy);
+  display: grid;
+  place-items: center;
+}
+.brand-light {
+  color: var(--teal);
+}
+.brand small {
+  display: block;
+  font: 600 8px "DM Sans";
+  letter-spacing: 2px;
+  color: #8da4b2;
+}
+.site-nav {
+  display: flex;
+  gap: 8px;
+  margin: auto;
+}
+.site-nav a {
+  padding: 10px 14px;
+  border-radius: 9px;
+  color: #b7c6cf;
+  font-size: 13px;
+  font-weight: 600;
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  background: #ffffff12;
+  color: white;
+}
+.site-nav a[aria-current="page"] {
+  box-shadow: inset 0 -2px var(--teal);
+}
+.header-status {
+  font-size: 11px;
+  color: #9bb0bb;
+  white-space: nowrap;
+}
+.header-status i,
+.eyebrow i {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  margin-right: 7px;
+}
+.menu-toggle {
+  display: none;
+}
+.page-shell {
+  max-width: 1240px;
+  margin: auto;
+  padding: 48px 28px 78px;
+  min-height: calc(100vh - 160px);
+}
+.hero-grid {
+  background: var(--navy);
+  color: white;
+  border-radius: 23px;
+  padding: 62px;
+  display: grid;
+  grid-template-columns: 1fr 0.95fr;
+  gap: 40px;
+  align-items: center;
+  overflow: hidden;
+}
+.eyebrow,
+.panel-kicker {
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  font-weight: 800;
+  color: #0aa797;
+  display: block;
+}
+.hero-copy .eyebrow {
+  color: var(--teal);
+}
+.hero-copy h1 {
+  font: 800 clamp(38px, 5vw, 62px)/1.08 Manrope;
+  letter-spacing: -2.5px;
+  margin: 18px 0;
+}
+.hero-copy h1 span {
+  color: var(--teal);
+}
+.hero-lead {
+  color: #afc0ca;
+  max-width: 520px;
+  font-size: 16px;
+}
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 28px 0;
+}
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-weight: 700;
+  font-size: 12px;
+}
+.btn-primary {
+  background: var(--teal);
+  color: #062331;
+}
+.btn-ghost {
+  border-color: #cbd7dc;
+  color: var(--ink);
+  background: white;
+}
+.hero-copy .btn-ghost {
+  background: transparent;
+  color: white;
+  border-color: #ffffff40;
+}
+.hero-note {
+  color: #92a9b5;
+  font-size: 11px;
+}
+.hero-visual {
+  background: #0c2b3b;
+  border: 1px solid #ffffff1c;
+  border-radius: 17px;
+  padding: 17px;
+}
+.visual-topline,
+.visual-bottom {
+  display: flex;
+  justify-content: space-between;
+  color: #91aab6;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.live-tag {
+  color: var(--teal);
+}
+.angiogram-art {
+  height: 330px;
+  margin: 14px 0;
+  background: radial-gradient(ellipse, #31566a, #0a2434 75%);
+  position: relative;
+  overflow: hidden;
+  border-radius: 9px;
+}
+.angiogram-art svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.scan-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#b8d6e30b 1px, transparent 1px),
+    linear-gradient(90deg, #b8d6e30b 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.scan-label {
+  position: absolute;
+  color: #b7d2da;
+  font-size: 8px;
+  background: #061b2ac9;
+  padding: 7px;
+}
+.label-a {
+  left: 12px;
+  top: 26%;
+}
+.label-b {
+  right: 10px;
+  bottom: 22%;
+}
+.visual-bottom {
+  border-top: 1px solid #ffffff15;
+  padding-top: 13px;
+}
+.metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin: 22px 0 68px;
+  box-shadow: var(--shadow);
+}
+.metrics-strip div {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-right: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 700;
+  color: #53697a;
+}
+.metrics-strip div:last-child {
+  border: 0;
+}
+.metrics-strip b {
+  font: 800 20px Manrope;
+  color: #079d91;
+}
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 23px;
+}
+.section-heading h2,
+.page-heading h1 {
+  font: 800 31px/1.2 Manrope;
+  letter-spacing: -1px;
+  margin: 5px 0 0;
+}
+.section-heading p {
+  max-width: 440px;
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0;
+}
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 17px;
+}
+.feature-card,
+.panel {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 6px 24px #102c3e08;
+}
+.feature-card {
+  transition: 0.2s;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #e8f7f5;
+  color: #079d91;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.feature-icon.teal {
+  background: #e7f5f8;
+}
+.feature-icon.amber {
+  background: #fff5e7;
+  color: #bd8434;
+}
+.feature-card small {
+  font-size: 9px;
+  letter-spacing: 1.4px;
+  color: #8a9aa6;
+  font-weight: 800;
+}
+.feature-card h3 {
+  font: 700 18px Manrope;
+  margin: 8px 0;
+}
+.feature-card p {
+  color: var(--muted);
+  font-size: 13px;
+  min-height: 60px;
+}
+.feature-card > b {
+  color: #079d91;
+  font-size: 12px;
+}
+.notice {
+  display: flex;
+  gap: 13px;
+  padding: 16px 18px;
+  border: 1px solid #cde8e4;
+  background: #effaf8;
+  border-radius: 11px;
+  margin-top: 27px;
+  color: #2d5f63;
+}
+.notice p {
+  font-size: 12px;
+  margin: 3px 0 0;
+  color: #587a7e;
+}
+.notice b {
+  font-size: 12px;
+}
+.notice-warning {
+  background: #fff8ed;
+  border-color: #f0dfc4;
+  color: #725529;
+  margin: 0 0 24px;
+}
+.notice-warning p {
+  color: #806e50;
+}
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 20px;
+}
+.page-heading h1 {
+  font-size: 34px;
+}
+.page-heading p {
+  color: var(--muted);
+  margin: 8px 0 0;
+  font-size: 14px;
+}
+.step-chip {
+  border: 1px solid var(--line);
+  background: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+}
+.step-chip span {
+  font-size: 8px;
+  letter-spacing: 1.3px;
+  color: #8b9aa5;
+  font-weight: 800;
+}
+.step-chip b {
+  font-size: 12px;
+}
+.upload-layout {
+  display: grid;
+  grid-template-columns: 1.6fr 0.8fr;
+  gap: 20px;
+}
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.panel-heading h2,
+.side-panel h2,
+.export-controls h2 {
+  font: 750 19px Manrope;
+  margin: 5px 0;
+}
+.panel-heading p,
+.muted {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
+}
+.panel-symbol {
+  color: #94aab4;
+}
+.drop-zone {
+  border: 1.5px dashed #9ccac5;
+  border-radius: 13px;
+  background: #f5fbfa;
+  text-align: center;
+  padding: 32px 18px;
+}
+.drop-zone.drag-active {
+  background: #e1f7f3;
+  border-color: #079d91;
+}
+.upload-cloud {
+  width: 52px;
+  height: 52px;
+  margin: auto auto 10px;
+  background: #dff5f1;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  color: #079d91;
+  font-size: 27px;
+}
+.drop-zone h3 {
+  font: 700 16px Manrope;
+  margin: 5px;
+}
+.drop-zone p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 4px 0 15px;
+}
+.file-support {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 17px;
+}
+.file-support span {
+  font-size: 8px;
+  font-weight: 800;
+  color: #748895;
+  background: white;
+  border: 1px solid var(--line);
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+.empty-preview,
+.file-card {
+  margin-top: 15px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 13px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.empty-preview > .material-symbols-outlined {
+  font-size: 27px;
+  color: #9aadb8;
+}
+.empty-preview b,
+.file-info > b {
+  font-size: 12px;
+}
+.empty-preview p,
+.file-info p {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 2px 0;
+}
+.file-thumb {
+  width: 74px;
+  height: 65px;
+  background: #0b2638;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.file-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.file-info {
+  flex: 1;
+  min-width: 0;
+}
+.file-info > b {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.file-meta {
+  display: flex;
+  gap: 13px;
+  font-size: 10px;
+  color: #79909e;
+}
+.icon-btn {
+  border: 0;
+  background: #f0f4f6;
+  border-radius: 8px;
+  width: 30px;
+  height: 30px;
+}
+.upload-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 17px;
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.check-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+.check-list li {
+  display: flex;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid #edf1f3;
+}
+.check-list li > b {
+  color: #16a999;
+}
+.check-list strong {
+  font-size: 12px;
+}
+.check-list p {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 2px 0;
+}
+.privacy-note {
+  background: #f4f7f8;
+  padding: 12px;
+  border-radius: 9px;
+  color: #748893;
+  font-size: 10px;
+  line-height: 1.5;
+}
+.error-banner {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  background: #fff0f0;
+  border: 1px solid #f2c9cb;
+  color: #a33d48;
+  border-radius: 9px;
+  margin-top: 14px;
+  font-size: 12px;
+}
+.error-banner p {
+  margin: 0;
+}
+.progress-panel {
+  margin-top: 20px;
+}
+.progress-head {
+  display: flex;
+  justify-content: space-between;
+}
+.progress-head h2 {
+  font: 700 18px Manrope;
+  margin: 4px 0;
+}
+.progress-head > strong {
+  color: #079d91;
+  font: 800 20px Manrope;
+}
+.progress-track,
+.confidence-track {
+  height: 7px;
+  background: #eaf0f2;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 16px 0 22px;
+}
+.progress-track > div {
+  height: 100%;
+  width: 0;
+  background: var(--teal);
+  transition: width 0.2s;
+}
+.pipeline-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+.pipeline-steps > div {
+  display: flex;
+  gap: 9px;
+  opacity: 0.3;
+}
+.pipeline-steps i {
+  font-style: normal;
+  background: #e6f5f2;
+  color: #079d91;
+  width: 27px;
+  height: 27px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+}
+.pipeline-steps b {
+  font-size: 11px;
+}
+.pipeline-steps p {
+  font-size: 10px;
+  color: var(--muted);
+  margin: 3px 0;
+}
+.results-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.8fr;
+  gap: 20px;
+}
+.viewer-badge,
+.ready-pill {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #0b9b8d;
+  background: #e8f8f5;
+  border-radius: 30px;
+  padding: 7px 10px;
+}
+.viewer-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.mode-switch,
+.zoom-tools {
+  display: flex;
+  background: #f0f4f6;
+  border-radius: 8px;
+  padding: 3px;
+}
+.mode-switch button,
+.zoom-tools button {
+  border: 0;
+  background: transparent;
+  color: #718390;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.mode-switch button.visual-mode-active {
+  background: white;
+  color: #078f84;
+  box-shadow: 0 1px 4px #0001;
+}
+.zoom-tools {
+  border: 1px solid var(--line);
+  background: white;
+}
+.zoom-tools button {
+  font-size: 13px;
+}
+.vessel-canvas {
+  position: relative;
+  aspect-ratio: 1.22/1;
+  background: #071d2c;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.vessel-layer {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.2s;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.vessel-base {
+  background-color: #0c1a24;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.vessel-base:after {
+  display: none !important;
+  content: none !important;
+}
+.vessel-mask {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  filter: drop-shadow(0 0 6px rgba(0, 235, 220, 0.75));
+  transition: opacity 0.2s ease;
+}
+.canvas-tag {
+  position: absolute;
+  bottom: 12px;
+  left: 13px;
+  background: #061722c9;
+  color: #b5d2da;
+  font-size: 8px;
+  padding: 6px;
+}
+.viewer-foot {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top: 11px;
+  font-size: 9px;
+  color: #718390;
+}
+.text-button {
+  border: 0;
+  background: none;
+  color: #0c9c90;
+  font-weight: 700;
+  font-size: 10px;
+  margin-left: auto;
+}
+.finding-highlight {
+  background: var(--navy);
+  border-radius: 11px;
+  padding: 18px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+.finding-highlight span {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #91aab6;
+}
+.finding-highlight strong {
+  font: 800 42px Manrope;
+  color: var(--teal);
+}
+.finding-highlight strong small {
+  font-size: 20px;
+}
+.finding-highlight em {
+  font-size: 10px;
+  color: #a9bac4;
+  font-style: normal;
+}
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 1px solid #edf1f3;
+}
+.metric-row div {
+  display: flex;
+  flex-direction: column;
+}
+.metric-row span {
+  font-size: 10px;
+  color: #80929e;
+}
+.metric-row b {
+  font-size: 11px;
+}
+.text-danger {
+  color: var(--red) !important;
+}
+.text-warning {
+  color: #d97706 !important;
+}
+.text-success {
+  color: #059669 !important;
+}
+.text-info {
+  color: #0284c7 !important;
+}
+.backend-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.backend-status-online {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+.backend-status-offline {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+.sample-btn-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.sample-chip-btn {
+  background: #f0f7f9;
+  border: 1px solid #b7d6df;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #084050;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+}
+.sample-chip-btn:hover {
+  background: #084050;
+  color: #ffffff;
+  border-color: #084050;
+}
+.confidence-card {
+  background: #f5f9fa;
+  padding: 12px;
+  border-radius: 9px;
+  margin: 14px 0;
+}
+.confidence-card > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 700;
+}
+.confidence-card b {
+  color: #079d91;
+}
+.confidence-track {
+  height: 5px;
+  margin: 8px 0;
+}
+.confidence-track i {
+  display: block;
+  width: 94.2%;
+  height: 100%;
+  background: var(--teal);
+}
+.confidence-card small {
+  font-size: 9px;
+  color: #8999a3;
+}
+.btn-full {
+  width: 100%;
+  margin-top: 8px;
+}
+.compact-heading {
+  margin: 32px 0 12px;
+}
+.compact-heading h2 {
+  font-size: 22px;
+}
+.muted-label {
+  font-size: 9px;
+  color: #8798a3;
+  font-weight: 800;
+}
+.segment-card {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  padding: 17px 20px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+}
+.segment-number {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #fff3e7;
+  color: #bd8434;
+  display: grid;
+  place-items: center;
+  font: 800 16px Manrope;
+}
+.segment-description {
+  flex: 1;
+}
+.segment-description b {
+  font-size: 12px;
+}
+.segment-description p {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 3px 0;
+}
+.segment-value {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+.segment-value strong {
+  font: 800 22px Manrope;
+  color: var(--red);
+}
+.segment-value span {
+  font-size: 9px;
+  color: var(--muted);
+}
+.export-layout {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 24px;
+  align-items: start;
+}
+.export-controls {
+  position: sticky;
+  top: 105px;
+}
+.export-controls h2 {
+  font-size: 21px;
+}
+.export-controls > .muted {
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.export-option {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  margin: 11px 0;
+}
+.export-option > .material-symbols-outlined {
+  color: #0aa294;
+  background: #e9f8f5;
+  padding: 9px;
+  border-radius: 8px;
+}
+.export-option div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.export-option b {
+  font-size: 11px;
+}
+.export-option small {
+  font-size: 9px;
+  color: var(--muted);
+}
+.report-paper {
+  background: white;
+  border: 1px solid #e0e6e9;
+  box-shadow: 0 15px 45px #0d2b3c12;
+  padding: 42px 46px;
+  min-height: 700px;
+}
+.paper-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.paper-logo {
+  font: 800 15px Manrope;
+  color: #0b2a3b;
+}
+.paper-top small {
+  display: block;
+  color: #82939c;
+  font-size: 7px;
+  letter-spacing: 1.6px;
+}
+.paper-status {
+  font-size: 8px;
+  color: #078f84;
+  border: 1px solid #bce8e1;
+  padding: 6px 9px;
+}
+.paper-rule {
+  height: 3px;
+  background: var(--teal);
+  margin: 20px 0 28px;
+}
+.report-paper h2 {
+  font: 800 28px/1.2 Manrope;
+  margin: 8px 0 20px;
+}
+.paper-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-block: 1px solid var(--line);
+  padding: 14px 0;
+  margin: 20px 0;
+}
+.paper-meta div,
+.paper-stat-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.paper-meta small,
+.paper-stat-grid small {
+  font-size: 8px;
+  color: #8999a3;
+  letter-spacing: 1px;
+}
+.paper-meta b {
+  font-size: 11px;
+}
+.paper-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.paper-stat-grid div {
+  padding: 13px;
+  background: #f4f8f9;
+  border-radius: 7px;
+}
+.paper-stat-grid b {
+  font: 800 17px Manrope;
+}
+.report-paper h3 {
+  font: 700 14px Manrope;
+  margin: 27px 0 10px;
+}
+.paper-table {
+  border-top: 1px solid var(--line);
+}
+.paper-table div {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid #edf1f3;
+  font-size: 10px;
+}
+.paper-table span {
+  color: #758793;
+}
+.paper-table b {
+  text-align: right;
+}
+.paper-disclaimer {
+  background: #fff8ed;
+  border: 1px solid #f0dfc4;
+  border-radius: 7px;
+  padding: 13px;
+  margin-top: 23px;
+}
+.paper-disclaimer b {
+  font-size: 10px;
+  color: #8d652c;
+}
+.paper-disclaimer p {
+  font-size: 9px;
+  color: #806e50;
+  margin: 4px 0;
+}
+.paper-footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  margin-top: 30px;
+  color: #91a0a8;
+  font-size: 8px;
+}
+.site-footer {
+  background: var(--navy);
+  color: #8fa4af;
+  padding: 25px max(calc((100vw - 1240px) / 2), 5.5%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.footer-brand {
+  color: white;
+  font-size: 15px;
+}
+.footer-brand .brand-mark {
+  width: 27px;
+  height: 27px;
+  font-size: 16px;
+}
+.site-footer p {
+  font-size: 10px;
+  margin: 7px 0;
+}
+.site-footer > span {
+  font-size: 10px;
+}
+.hidden {
+  display: none !important;
+}
+@media (max-width: 900px) {
+  .site-header {
+    padding: 0 22px;
+    gap: 18px;
+  }
+  .header-status {
+    display: none;
+  }
+  .hero-grid {
+    padding: 42px 32px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .upload-layout,
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+  .export-layout {
+    grid-template-columns: 1fr;
+  }
+  .export-controls {
+    position: static;
+  }
+}
+@media (max-width: 650px) {
+  .site-header {
+    height: 70px;
+    padding: 0 17px;
+  }
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: 0;
+    color: white;
+    margin-left: auto;
+  }
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: #0d2b3c;
+    padding: 12px 18px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .site-nav.mobile-nav-open {
+    display: flex;
+  }
+  .page-shell {
+    padding: 28px 15px 50px;
+  }
+  .hero-grid {
+    padding: 32px 21px;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .hero-copy h1 {
+    font-size: 41px;
+  }
+  .angiogram-art {
+    height: 250px;
+  }
+  .metrics-strip {
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 48px;
+  }
+  .metrics-strip div {
+    padding: 15px 10px;
+  }
+  .metrics-strip div:nth-child(2) {
+    border-right: 0;
+  }
+  .metrics-strip div:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+  .section-heading,
+  .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .section-heading h2 {
+    font-size: 26px;
+  }
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+  .feature-card p {
+    min-height: 0;
+  }
+  .page-heading h1 {
+    font-size: 29px;
+  }
+  .panel {
+    padding: 18px;
+  }
+  .upload-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pipeline-steps {
+    grid-template-columns: 1fr;
+  }
+  .viewer-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .mode-switch {
+    width: 100%;
+  }
+  .mode-switch button {
+    flex: 1;
+  }
+  .viewer-foot {
+    flex-wrap: wrap;
+  }
+  .segment-card {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .segment-description {
+    min-width: calc(100% - 65px);
+  }
+  .segment-value {
+    margin-left: 59px;
+    text-align: left;
+  }
+  .report-paper {
+    padding: 24px 18px;
+  }
+  .report-paper h2 {
+    font-size: 23px;
+  }
+  .paper-table div {
+    font-size: 9px;
+  }
+  .site-footer {
+    padding: 22px 17px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .export-controls {
+    padding: 19px;
+  }
+}
+@media print {
+  body {
+    background: white;
+  }
+  .site-header,
+  .site-footer,
+  .page-heading,
+  .notice,
+  .export-controls {
+    display: none !important;
+  }
+  .page-shell {
+    padding: 0;
+    max-width: none;
+  }
+  .export-layout {
+    display: block;
+  }
+  .report-paper {
+    box-shadow: none;
+    border: 0;
+    padding: 10mm;
+    max-width: none;
+  }
+  .paper-disclaimer {
+    break-inside: avoid;
+  }
+  @page {
+    margin: 12mm;
+  }
+}
+
+/* LIGHT CLINICAL THEME — overrides the previous dark concept */
+:root {
+  --ink: #203747;
+  --muted: #71818d;
+  --navy: #ffffff;
+  --navy2: #f3f7f8;
+  --teal: #0b9e91;
+  --teal-dark: #087f77;
+  --pale: #e8f7f5;
+  --line: #dce5e9;
+  --paper: #fff;
+  --bg: #f5f8fa;
+  --shadow: 0 14px 38px rgba(29, 58, 74, 0.07);
+}
+body {
+  background: #f5f8fa;
+  color: #203747;
+}
+.site-header {
+  background: #fff;
+  color: #203747;
+  border-bottom: 1px solid #e2e9ed;
+  box-shadow: 0 3px 16px #1733480a;
+}
+.brand {
+  color: #19384b;
+}
+.brand small {
+  color: #8798a2;
+}
+.brand-mark {
+  background: #e0f5f1;
+  color: #078f83;
+}
+.brand-light {
+  color: #0a9b8e;
+}
+.site-nav a {
+  color: #5e7180;
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  background: #eaf7f5;
+  color: #087f77;
+}
+.header-status {
+  color: #70838e;
+}
+.hero-grid {
+  background: #fff;
+  color: #203747;
+  border: 1px solid #e0e9ed;
+  box-shadow: var(--shadow);
+}
+.hero-grid:before {
+  border-color: #0b9e9112;
+}
+.hero-copy h1 {
+  color: #17364a;
+}
+.hero-copy h1 span {
+  color: #0b9e91;
+}
+.hero-lead {
+  color: #627987;
+}
+.btn-ghost {
+  border-color: #d4e0e5;
+  color: #49616f;
+}
+.hero-note {
+  color: #718792;
+}
+.hero-visual {
+  background: #f8fbfc;
+  border-color: #dfe8ec;
+  box-shadow: none;
+}
+.visual-topline,
+.visual-bottom {
+  color: #6e8491;
+}
+.live-tag {
+  color: #078f83;
+}
+.angiogram-art {
+  background: #e8edf0;
+}
+.scan-label {
+  background: #ffffffeb;
+  color: #365364;
+  border-color: #d9e3e8;
+}
+.scan-cross {
+  border-color: #0b9e91;
+  box-shadow: 0 0 0 7px #0b9e9120;
+}
+.visual-bottom {
+  border-color: #dce5e9;
+}
+.metrics-strip {
+  box-shadow: 0 8px 24px #1b3a4b08;
+}
+.site-footer {
+  background: #fff;
+  color: #728590;
+  border-top: 1px solid #e0e8ec;
+}
+.footer-brand {
+  color: #19384b;
+}
+.site-footer p {
+  color: #788b96;
+}
+.menu-toggle {
+  color: #24475a;
+}
+.real-angiogram-card {
+  padding: 16px;
+}
+.angiogram-photo-wrap {
+  height: 340px;
+  margin: 14px 0;
+  background: #edf1f3;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.angiogram-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #111;
+}
+.real-angiogram-card .visual-bottom a {
+  color: #078f83;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.hero-grid {
+  grid-template-columns: 1fr 1fr;
+}
+.hero-visual {
+  min-width: 0;
+}
+.vessel-canvas {
+  background: #08141f !important;
+  position: relative;
+}
+.roi-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: 2.5px solid #ffb45e !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 0 4px rgba(255, 180, 94, 0.35), 0 0 12px rgba(255, 180, 94, 0.75) !important;
+  pointer-events: none;
+  display: none;
+  z-index: 10;
+}
+.roi-marker::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: #ffb45e;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.canvas-tag {
+  background: #ffffffed;
+  color: #344e5c;
+}
+.image-attribution {
+  font-size: 9px;
+  color: #81919b;
+  margin: 9px 0 0;
+}
+.image-attribution a {
+  color: #078f83;
+  text-decoration: underline;
+}
+.mode-switch button.visual-mode-active {
+  color: #087f77;
+}
+.finding-highlight {
+  background: #eaf7f5;
+  color: #203747;
+  border: 1px solid #d4eeea;
+}
+.finding-highlight span {
+  color: #64817f;
+}
+.finding-highlight strong {
+  color: #087f77;
+}
+.finding-highlight em {
+  color: #6e838d;
+}
+.progress-track > div {
+  background: #0b9e91;
+}
+.reference-image {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 10px;
+  margin-top: 14px;
+  background: #fff;
+}
+.reference-image img {
+  width: 92px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 7px;
+  background: #111;
+}
+.reference-image b {
+  font-size: 11px;
+}
+.reference-image p {
+  font-size: 10px;
+  color: var(--muted);
+  margin: 2px 0;
+}
+.reference-image a {
+  font-size: 10px;
+  color: #087f77;
+  text-decoration: underline;
+}
+@media (max-width: 650px) {
+  .site-nav {
+    background: #fff;
+    box-shadow: 0 15px 20px #17334818;
+  }
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .angiogram-photo-wrap {
+    height: 250px;
+  }
+  .real-angiogram-card .visual-bottom {
+    font-size: 7px;
+  }
+}
+@media print {
+  .site-header,
+  .site-footer {
+    display: none !important;
+  }
+}
+
+    </style>
+    <script defer src="main.js"></script>
+  </head>
+  <body data-page="results">
+    <header class="site-header">
+      <a class="brand" href="index.html"
+        ><span class="brand-mark">✚</span
+        ><span
+          >coronary<span class="brand-light">.ai</span
+          ><small>RESEARCH PLATFORM</small></span
+        ></a
+      ><button class="menu-toggle" aria-label="Toggle navigation">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+                        <nav class="site-nav">
+        <a href="index.html">Overview</a>
+        <a href="UploadandAnalysis.html">Upload &amp; Analyze</a>
+        <a href="IntelligenceLab.html">Intelligence Lab</a>
+        <a href="Report.html">Results</a>
+        <a href="Export.html">Export</a>
+      </nav>
+      <div class="header-status"><i></i> Research environment</div>
+    </header>
+    <main class="page-shell">
+      <div class="page-heading">
+        <div>
+          <div class="eyebrow">WORKSPACE / RESULTS</div>
+          <h1>Vessel analysis</h1>
+          <p>
+            Inspect AI coronary vessel segmentation, lumen profiles, and quantitative stenosis metrics.
+          </p>
+        </div>
+        <div class="step-chip">
+          <span>CASE REFERENCE</span><b>#CA-2023-89102</b>
+        </div>
+      </div>
+      <div class="notice notice-warning">
+        <span class="material-symbols-outlined">verified</span>
+        <div>
+          <b>AI Angiographic Analysis Complete</b>
+          <p>
+            Quantitative lumen metrics and multi-scale vessel segmentation computed by the Coronary AI engine.
+          </p>
+        </div>
+      </div>
+      <div class="results-grid">
+        <section class="panel viewer-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-kicker">IMAGE VIEWER</span>
+              <h2>Coronary vessel map</h2>
+              <p>Switch layers and adjust the view to inspect the analysis.</p>
+            </div>
+            <span class="viewer-badge">● AI DIAGNOSTIC VIEW</span>
+          </div>
+          <div class="viewer-toolbar">
+            <div class="mode-switch">
+              <button class="visual-mode-active" type="button">Overlay</button
+              ><button type="button">Original</button
+              ><button type="button">Mask Only</button>
+            </div>
+            <div class="zoom-tools">
+              <button title="Zoom Out" type="button">−</button
+              ><button title="Reset View" type="button">100%</button
+              ><button title="Zoom In" type="button">+</button>
+            </div>
+          </div>
+          <div class="aspect-square bg-inverse-surface vessel-canvas">
+            <div
+              class="vessel-layer vessel-base"
+              role="img"
+              aria-label="Coronary angiogram frame"
+            ></div>
+            <div class="vessel-layer vessel-mask">
+              <span
+                class="roi-marker"
+                aria-label="Region of interest stenosis marker"
+              ></span>
+            </div>
+            <span class="canvas-tag">ANGIOGRAM · AI SEGMENTED</span>
+          </div>
+          <p class="image-attribution">
+            Angiogram frame processed with multi-scale vessel ridge filtering and lumen morphometry.
+          </p>
+          <div class="viewer-foot">
+            <span>〰 Vessel lumen</span><span>● Stenosis lesion ROI</span
+            ><button title="Fit to Screen" class="text-button" type="button">
+              Fit to screen
+            </button>
+          </div>
+        </section>
+        <aside class="panel findings-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-kicker">QUANTITATIVE SUMMARY</span>
+              <h2>Key findings</h2>
+            </div>
+            <span class="material-symbols-outlined panel-symbol">analytics</span>
+          </div>
+          <div class="finding-highlight">
+            <span>MAXIMUM STENOSIS</span><strong>68<small>%</small></strong
+            ><em>Left Anterior Descending (LAD)</em>
+          </div>
+          <div class="metric-row">
+            <div>
+              <span>Target vessel</span><b>Left Anterior Descending (LAD)</b>
+            </div>
+            <span>♡</span>
+          </div>
+          <div class="metric-row">
+            <div>
+              <span>Stenosis classification</span
+              ><b class="text-danger">Moderate–severe</b>
+            </div>
+            <span>↗</span>
+          </div>
+          <div class="metric-row">
+            <div><span>Reference diameter</span><b>3.2 mm</b></div>
+            <span>↔</span>
+          </div>
+          <div class="metric-row">
+            <div><span>Minimum lumen diameter</span><b>1.0 mm</b></div>
+            <span>↔</span>
+          </div>
+          <div class="metric-row">
+            <div><span>Virtual FFR (Hemodynamic)</span><b id="finding-vffr" class="text-danger">0.74</b></div>
+            <span>⚡</span>
+          </div>
+          <div class="clinical-rec-box" style="margin: 12px 0; padding: 12px; border-radius: 9px; background: #fff5f5; border: 1px solid #fecaca; font-size: 11px; line-height: 1.4;">
+            <div style="font-weight: 700; color: #991b1b; display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
+              <span class="material-symbols-outlined" style="font-size: 14px">stethoscope</span> Clinical Decision Support
+            </div>
+            <p id="finding-clinical-rec" style="margin: 0; color: #7f1d1d;">
+              Hemodynamically significant stenosis (vFFR &le; 0.80). Percutaneous Coronary Intervention (PCI / Stent) indicated.
+            </p>
+          </div>
+          <div class="confidence-card">
+            <div><span>AI confidence score</span><b>94.2%</b></div>
+            <div class="confidence-track"><i></i></div>
+            <small>Vessel SNR and continuity metric.</small>
+          </div>
+          <a class="btn btn-primary btn-full" href="Export.html">Continue to report export →</a>
+          <a class="btn btn-full" style="margin-top: 8px; background: var(--teal); color: var(--navy); font-weight: 700; border-radius: 9px;" href="IntelligenceLab.html">
+            <span class="material-symbols-outlined">psychology</span> Open in Intelligence Lab →
+          </a>
+        </aside>
+      </div>
+      <div class="section-heading compact-heading">
+        <div>
+          <div class="eyebrow">OBSERVATIONS</div>
+          <h2>Segment review</h2>
+        </div>
+        <span class="muted-label">AHA/ACC SEGMENTATION</span>
+      </div>
+      <div class="segment-card">
+        <div class="segment-number">02</div>
+        <div class="segment-description">
+          <b>Mid LAD stenosis lesion</b>
+          <p>
+            Focal caliber reduction measuring MLD 1.0 mm against 3.2 mm reference lumen diameter.
+          </p>
+        </div>
+        <div class="segment-value">
+          <strong>68%</strong><span class="text-danger">Moderate–severe</span>
+        </div>
+      </div>
+      <div class="section-heading compact-heading" style="margin-top: 36px;">
+        <div>
+          <div class="eyebrow">INTELLIGENCE LAB / VERIFICATION</div>
+          <h2>Uncertainty &amp; Vessel Topology Insights</h2>
+        </div>
+        <span class="muted-label">ADVANCED RESEARCH METRICS</span>
+      </div>
+      <div class="metrics-strip" style="margin: 16px 0 24px;">
+        <div>
+          <span class="material-symbols-outlined" style="color:var(--teal)">insights</span>
+          <div>
+            <span style="font-size:10px;color:var(--muted);display:block;">RELIABILITY LEVEL</span>
+            <b id="report-unc-level" style="font-size:16px;">High Reliability</b>
+          </div>
+        </div>
+        <div>
+          <span class="material-symbols-outlined" style="color:#f59e0b">border_outer</span>
+          <div>
+            <span style="font-size:10px;color:var(--muted);display:block;">BORDER AMBIGUITY</span>
+            <b id="report-unc-boundary" style="font-size:16px;">0.31</b>
+          </div>
+        </div>
+        <div>
+          <span class="material-symbols-outlined" style="color:#0284c7">hub</span>
+          <div>
+            <span style="font-size:10px;color:var(--muted);display:block;">VESSEL GRAPH NODES</span>
+            <b id="report-graph-nodes" style="font-size:16px;">54 Nodes</b>
+          </div>
+        </div>
+        <div>
+          <span class="material-symbols-outlined" style="color:#10b981">verified_user</span>
+          <div>
+            <span style="font-size:10px;color:var(--muted);display:block;">VERIFICATION STATUS</span>
+            <b id="report-verification-status" style="font-size:16px;">AI Baseline</b>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div>
+        <a class="brand footer-brand" href="index.html"
+          ><span class="brand-mark">✚</span>coronary<span class="brand-light"
+            >.ai</span></a>
+        <p>AI-assisted coronary angiography research workspace.</p>
+      </div>
+      <span>© 2026 Coronary AI · Research prototype</span>
+    </footer>
+  </body>
+</html>

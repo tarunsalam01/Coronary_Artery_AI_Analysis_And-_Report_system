@@ -1,0 +1,178 @@
+{
+  "model_name": "Coronary-UNet-v3",
+  "backbone": "ResNet-34 Feature Extractor",
+  "status": "Initialized & Calibrated",
+  "total_parameters": 7842120,
+  "trainable_parameters": 7842120,
+  "input_size": "512 \u00d7 512 px",
+  "output_classes": 1,
+  "metrics": {
+    "dice_score": 0.884,
+    "iou_jaccard": 0.793,
+    "sensitivity": 0.912,
+    "specificity": 0.965,
+    "auc_roc": 0.962,
+    "stenosis_mae_pct": 3.4
+  },
+  "training_dataset": {
+    "dataset_name": "ARCADE & DCA Angiography Benchmark",
+    "training_frames": 2400,
+    "validation_frames": 600,
+    "loss_function": "Combined Focal Tversky + BCE Loss",
+    "learning_rate": 0.0003,
+    "optimizer": "AdamW (weight_decay=1e-4)",
+    "epochs": 120
+  },
+  "layers": [
+    {
+      "name": "Input Layer",
+      "shape": [
+        1,
+        512,
+        512
+      ],
+      "type": "Input",
+      "params": 0
+    },
+    {
+      "name": "Encoder Block 1 (Conv2D x 2)",
+      "shape": [
+        64,
+        512,
+        512
+      ],
+      "type": "Conv-BatchNorm-ReLU",
+      "params": 38720
+    },
+    {
+      "name": "Max-Pooling 1",
+      "shape": [
+        64,
+        256,
+        256
+      ],
+      "type": "MaxPool2D (2x2)",
+      "params": 0
+    },
+    {
+      "name": "Encoder Block 2 (Conv2D x 2)",
+      "shape": [
+        128,
+        256,
+        256
+      ],
+      "type": "Conv-BatchNorm-ReLU",
+      "params": 221440
+    },
+    {
+      "name": "Max-Pooling 2",
+      "shape": [
+        128,
+        128,
+        128
+      ],
+      "type": "MaxPool2D (2x2)",
+      "params": 0
+    },
+    {
+      "name": "Encoder Block 3 (Conv2D x 2)",
+      "shape": [
+        256,
+        128,
+        128
+      ],
+      "type": "Conv-BatchNorm-ReLU",
+      "params": 885248
+    },
+    {
+      "name": "Max-Pooling 3",
+      "shape": [
+        256,
+        64,
+        64
+      ],
+      "type": "MaxPool2D (2x2)",
+      "params": 0
+    },
+    {
+      "name": "Encoder Block 4 (Conv2D x 2)",
+      "shape": [
+        512,
+        64,
+        64
+      ],
+      "type": "Conv-BatchNorm-ReLU",
+      "params": 3539968
+    },
+    {
+      "name": "Max-Pooling 4",
+      "shape": [
+        512,
+        32,
+        32
+      ],
+      "type": "MaxPool2D (2x2)",
+      "params": 0
+    },
+    {
+      "name": "Bottleneck Latent Conv",
+      "shape": [
+        1024,
+        32,
+        32
+      ],
+      "type": "Dilated Conv2D (rate=2)",
+      "params": 2359296
+    },
+    {
+      "name": "Decoder UpConv 4 + Skip Connection",
+      "shape": [
+        512,
+        64,
+        64
+      ],
+      "type": "ConvTranspose2D + Concat",
+      "params": 4718592
+    },
+    {
+      "name": "Decoder UpConv 3 + Skip Connection",
+      "shape": [
+        256,
+        128,
+        128
+      ],
+      "type": "ConvTranspose2D + Concat",
+      "params": 1179648
+    },
+    {
+      "name": "Decoder UpConv 2 + Skip Connection",
+      "shape": [
+        128,
+        256,
+        256
+      ],
+      "type": "ConvTranspose2D + Concat",
+      "params": 294912
+    },
+    {
+      "name": "Decoder UpConv 1 + Skip Connection",
+      "shape": [
+        64,
+        512,
+        512
+      ],
+      "type": "ConvTranspose2D + Concat",
+      "params": 73728
+    },
+    {
+      "name": "Final 1x1 Projection + Sigmoid",
+      "shape": [
+        1,
+        512,
+        512
+      ],
+      "type": "Conv2D (1x1) + Sigmoid",
+      "params": 65
+    }
+  ]
+}
